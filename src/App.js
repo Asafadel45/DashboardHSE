@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useEffect, useState } from "react";
 import "./index.css";
 
@@ -15,5 +14,29 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(
-          `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${RANGE}?key=${API_KEY}`
+        const res = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${RANGE}?key=${API_KEY}`);
+        const result = await res.json();
+
+        if (result.values && result.values.length > 0) {
+          const row = result.values[0];
+          setData({
+            tahun: row[0] ?? "",
+            bulan: row[1] ?? "",
+            manpower: row[2] ?? "",
+            manhour: row[3] ?? "",
+            alatberat: row[4] ?? "",
+            nearmiss: row[5] ?? "",
+            uauc: row[6] ?? "",
+          });
+        } else {
+          setError("Sheet kosong atau range tidak ditemukan.");
+        }
+      } catch (err) {
+        console.error(err);
+        setError("Gagal mengambil data dari Google Sheets.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData(
