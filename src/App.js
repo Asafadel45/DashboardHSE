@@ -1,47 +1,67 @@
-<style>{`
-  body { 
-    font-family: Arial, sans-serif; 
-    background: #f9fafb; 
-    margin: 0; 
-    padding: 0; 
-  }
-  header {
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-    background: #fff; 
-    padding: 15px; 
-    border-bottom: 3px solid #b91c1c;
-    border-radius: 12px;
-    margin: 10px;
-  }
-  header img {
-    height: 50px; 
-    margin-right: 15px;
-  }
-  header h1 {
-    color: #7f1d1d; 
-    font-size: 22px; 
-    margin: 0;
-  }
-  header p {
-    color: #6b7280; 
-    font-size: 14px; 
-    margin: 0;
-  }
-  .container {
-    padding: 20px;
-  }
-  .loading { 
-    padding: 10px 14px; 
-    background: rgba(255,255,255,0.9); 
-    border-radius: 10px; 
-  }
-  .error { 
-    color: #7f1d1d; 
-    background: #ffeaea; 
-    padding: 10px 14px; 
-    border-radius: 8px; 
-    border: 1px solid rgba(127,29,29,0.15); 
-  }
-`}</style>
+import React, { useEffect, useState } from "react";
+import logo from "./logo.png";
+import bgImage from "./bg.jpg";
+
+// Google Sheets config
+const SHEET_ID = "1jjCcH4NG2KmFjhoJrxsKLSPYYOOoiOfV6RQwhveHDdM";
+const API_KEY = "AIzaSyAKOUdyrsx3rEKVEujtdgBVTSL-35F8JK0";
+const RANGE = "Data!A2:G2";
+
+// --- Icons (emoji sederhana supaya tidak error build) ---
+const UsersIcon = () => <span>👥</span>;
+const ClockIcon = () => <span>⏰</span>;
+const TruckIcon = () => <span>🚚</span>;
+const AlertIcon = () => <span>⚠️</span>;
+const ShieldIcon = () => <span>🛡️</span>;
+const CalendarIcon = () => <span>📅</span>;
+
+// --- Card component ---
+function Card({ title, value, Icon, color }) {
+  return (
+    <div className="card" style={{ borderTopColor: color }}>
+      <div className="card-icon" style={{ color }}>
+        <Icon />
+      </div>
+      <div className="card-title">{title}</div>
+      <div className="card-value">{value ?? "-"}</div>
+    </div>
+  );
+}
+
+// --- Main App ---
+function App() {
+  const [data, setData] = useState({
+    tahun: "",
+    bulan: "",
+    manpower: "",
+    manhour: "",
+    alatberat: "",
+    nearmiss: "",
+    uauc: "",
+  });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    async function fetchData() {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetch(
+          `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${RANGE}?key=${API_KEY}`
+        );
+        if (!res.ok) {
+          throw new Error("Gagal mengambil data. HTTP " + res.status);
+        }
+        const json = await res.json();
+        if (!cancelled) {
+          if (json.values && json.values.length > 0) {
+            const row = json.values[0];
+            setData({
+              tahun: row[0] ?? "",
+              bulan: row[1] ?? "",
+              manpower: row[2] ?? "",
+              manhour: row[3] ?? "",
+              alatberat: row[4] ?? "",
+              nearmiss: row
