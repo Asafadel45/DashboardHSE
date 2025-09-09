@@ -1,8 +1,8 @@
 {
   "name": "react-dashboard",
   "version": "1.0.0",
-  "description": "Dashboard HSSE dengan React",
-  "keywords": [],
+  "private": true,
+  "description": "HSSE Statistik Board Digital",
   "main": "src/index.js",
   "dependencies": {
     "react": "^18.2.0",
@@ -10,18 +10,32 @@
     "react-scripts": "5.0.1"
   },
   "devDependencies": {
-    "loader-utils": "3.2.1"
+    "typescript": "4.9.5",
+    "@types/react": "18.2.66",
+    "@types/react-dom": "18.2.22"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
