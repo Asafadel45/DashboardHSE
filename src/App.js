@@ -14,7 +14,9 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${RANGE}?key=${API_KEY}`);
+        const res = await fetch(
+          `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${RANGE}?key=${API_KEY}`
+        );
         const result = await res.json();
 
         if (result.values && result.values.length > 0) {
@@ -39,4 +41,31 @@ function App() {
       }
     };
 
-    fetchData(
+    fetchData();
+  }, []);
+
+  return (
+    <div className="app">
+      <header className="header">
+        <h1>HSSE Statistik Board Digital</h1>
+      </header>
+
+      {loading && <p className="loading">Sedang memuat data...</p>}
+      {error && <p className="error">{error}</p>}
+
+      {!loading && !error && (
+        <div className="data">
+          <p>Tahun: {data.tahun}</p>
+          <p>Bulan: {data.bulan}</p>
+          <p>Man Power: {data.manpower}</p>
+          <p>Man Hour: {data.manhour}</p>
+          <p>Alat Berat: {data.alatberat}</p>
+          <p>Near Miss: {data.nearmiss}</p>
+          <p>UA/UC: {data.uauc}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default App;
