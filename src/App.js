@@ -54,6 +54,4 @@ function App() {
       {loading && <p className="loading">Sedang memuat data...</p>}
       {error && <p className="error">{error}</p>}
 
-      {!loading && !error && (
-        <div className="dashboard">
-          <div className="card">Tahun: {dat
+      {!loa
