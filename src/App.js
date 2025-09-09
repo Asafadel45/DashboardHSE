@@ -37,3 +37,4 @@ function App() {
             alatberat: row[4] ?? "",
             nearmiss: row[5] ?? "",
             uauc: row
+export default App;
