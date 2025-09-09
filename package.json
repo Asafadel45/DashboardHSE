@@ -2,17 +2,9 @@
   "name": "react-dashboard",
   "version": "1.0.0",
   "private": true,
-  "description": "HSSE Statistik Board Digital",
-  "main": "src/index.js",
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1"
-  },
-  "devDependencies": {
-    "typescript": "4.9.5",
-    "@types/react": "18.2.66",
-    "@types/react-dom": "18.2.22"
+  "engines": {
+    "node": "18.x",
+    "npm": "9.x"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -20,12 +12,12 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1"
   },
+  "devDependencies": {},
   "browserslist": {
     "production": [
       ">0.2%",
