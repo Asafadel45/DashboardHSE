@@ -56,7 +56,4 @@ function App() {
 
       {!loading && !error && (
         <div className="dashboard">
-          <div className="card">Tahun: {data.tahun}</div>
-          <div className="card">Bulan: {data.bulan}</div>
-          <div className="card">Man Power: {data.manpower}</div>
-          <div classNa
+          <div className="card">Tahun: {dat
